@@ -1,0 +1,36 @@
+.industry-solutions-container {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .industry-solutions-container .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366; 
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  .industry-solutions-container .content {
+    text-align: justify;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .industry-solutions-container .content p {
+    margin-bottom: 20px;
+  }
+
+  .industry-solutions-container1 {
+    max-width: 900px;
+    margin: 50px auto;
+  }
+
+  .category-card:hover {
+    transform: scale(1.05); /* Slightly zoom in on hover */
+  }
+  
+  
+  
