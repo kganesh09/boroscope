@@ -10,7 +10,7 @@ function ExampleCarouselImage({ text, altText }) {
 
 function UncontrolledExample() {
   return (
-    <Carousel controls={true} indicators={true}>
+    <Carousel controls={false} indicators={true}>
       {/* First Slide */}
       <Carousel.Item>
         <ExampleCarouselImage text={firstimg} altText="NTS500 PRO INSPECTION CAMERA - All-In-One 5-inch Tablet" />
