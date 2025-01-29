@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const AdminLogin = () => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);  // Adding state to track submission
   const { login } = useAuth();
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -13,6 +14,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);  // Set submitting state to true when form is being submitted
 
     try {
       const response = await fetch(`${API_BASE_URL}/admin/login`, {
@@ -24,7 +26,7 @@ const AdminLogin = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Invalid login credentials");
+        throw new Error("Invalid login credentials");  
       }
 
       const data = await response.json();
@@ -34,6 +36,8 @@ const AdminLogin = () => {
       navigate("/admin/dashboard");
     } catch (err) {
       setError(err.message || "Login failed");
+    } finally {
+      setIsSubmitting(false);  
     }
   };
 
@@ -54,6 +58,7 @@ const AdminLogin = () => {
                 setCredentials({ ...credentials, username: e.target.value })
               }
               required
+              aria-label="Username input field"
             />
           </div>
           <div className="mb-3">
@@ -68,10 +73,13 @@ const AdminLogin = () => {
                 setCredentials({ ...credentials, password: e.target.value })
               }
               required
+              aria-label="Password input field"
             />
           </div>
-          {error && <div className="alert alert-danger">{error}</div>}
-          <button type="submit" className="btn btn-primary w-100">Login</button>
+          {error && <div className="alert alert-danger" aria-live="assertive">{error}</div>}
+          <button type="submit" className="btn btn-primary w-100" disabled={isSubmitting}>
+            {isSubmitting ? "Logging in..." : "Login"}
+          </button>
         </form>
       </div>
     </div>

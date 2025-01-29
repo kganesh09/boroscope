@@ -32,7 +32,7 @@ const AdminDashboard = () => {
     };
 
     fetchData();
-  }, [logout, navigate]);
+  }, [logout, navigate, API_BASE_URL]);  // Added API_BASE_URL here
 
   const handleLogout = () => {
     logout();
