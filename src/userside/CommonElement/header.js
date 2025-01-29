@@ -10,7 +10,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
-            <img src={logo} className="navbar-logo" ></img>
+            <img src={logo} className="navbar-logo" alt="navlogo"></img>
           </NavLink>
           <button
             className="navbar-toggler"
