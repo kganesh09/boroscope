@@ -9,6 +9,9 @@ import Product from "./userside/pages/Product";
 import ContactChat from "./userside/CommonElement/ContactChat";
 import AdminLogin from "./Adminside/pages/AdminLogin";
 import AdminDashboard from "./Adminside/pages/AdminDashboard";
+import AddProduct from "./Adminside/components/AddProduct";
+import Enquiries from "./Adminside/components/Enquires";
+import Settings from "./Adminside/components/Settings";
 import ProtectedRoute from "./ProtectRoutes";
 import { AuthProvider } from "./AuthContext";
 
@@ -25,12 +28,14 @@ function App() {
 function Content() {
   const location = useLocation();
 
-  // Conditional rendering for user-side components
+  // Check if the current route belongs to the user-side
   const isUserSide = !location.pathname.startsWith("/admin");
 
   return (
     <>
+      {/* User-Side Header */}
       {isUserSide && <Header />}
+
       <Routes>
         {/* User-Side Routes */}
         <Route path="/" element={<Home />} />
@@ -47,8 +52,15 @@ function Content() {
               <AdminDashboard />
             </ProtectedRoute>
           }
-        />
+        >
+          {/* Nested Admin Routes */}
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="enquiries" element={<Enquiries />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
       </Routes>
+
+      {/* User-Side Floating Chat */}
       {isUserSide && <ContactChat />}
     </>
   );

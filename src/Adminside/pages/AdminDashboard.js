@@ -1,38 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import { useNavigate } from "react-router-dom";
+import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
-  const [data, setData] = useState(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("adminToken");
-
-      try {
-        const response = await fetch(`${API_BASE_URL}/admin/dashboard`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.status === 401) {
-          logout();
-          navigate("/admin/login");
-        }
-
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error("Failed to fetch data:", error.message);
-      }
-    };
-
-    fetchData();
-  }, [logout, navigate, API_BASE_URL]);  // Added API_BASE_URL here
 
   const handleLogout = () => {
     logout();
@@ -40,14 +13,42 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
-      <h2>Admin Dashboard</h2>
-      {data ? (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      ) : (
-        <p>Loading...</p>
-      )}
-      <button onClick={handleLogout}>Logout</button>
+    <div className="dashboard-container">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <h3>Admin Panel</h3>
+        </div>
+        <nav className="sidebar-nav">
+          <ul>
+            <li>
+              <NavLink to="add-product" activeClassName="active-link">
+                Add Product
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="enquiries" activeClassName="active-link">
+                Enquiries
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="settings" activeClassName="active-link">
+                Settings
+              </NavLink>
+            </li>
+            <li>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 };

@@ -58,7 +58,7 @@ function ContactChat() {
     <>
       {/* Floating Button */}
       <button onClick={toggleChat} className="floating-button">
-        💬
+        {isOpen ? "✖" : "💬"} 
       </button>
 
       {/* Chat Popup */}

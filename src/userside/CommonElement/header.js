@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";  // Import NavLink
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import logo from "../../images/logo5.Zj9Pk6"
 
 function Header() {
   
@@ -9,7 +10,7 @@ function Header() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
-            Brand
+            <img src={logo} className="navbar-logo" ></img>
           </NavLink>
           <button
             className="navbar-toggler"
