@@ -4,9 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Header() {
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => setShowModal(!showModal);
-
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
