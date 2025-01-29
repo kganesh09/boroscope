@@ -6,13 +6,14 @@ const AdminDashboard = () => {
   const [data, setData] = useState(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("adminToken");
 
       try {
-        const response = await fetch("http://localhost:4000/admin/dashboard", {
+        const response = await fetch(`${API_BASE_URL}/admin/dashboard`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

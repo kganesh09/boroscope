@@ -12,14 +12,15 @@ function ContactChat() {
 
   const toggleChat = () => setIsOpen(!isOpen);
   const currentDate = new Date().toLocaleDateString();
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
     setLoading(true);
     setErrorMessage(null);
     setResponseMessage("");
 
-    try {
-      const response = await fetch("http://localhost:4000/user/contact", {
+    try { 
+      const response = await fetch(`${API_BASE_URL}/user/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
