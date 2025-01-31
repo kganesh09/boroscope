@@ -8,6 +8,7 @@ const Enquiries = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('adminToken');
 
   // Fetch enquiries data
@@ -15,7 +16,7 @@ const Enquiries = () => {
     const fetchEnquiries = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/admin/enquires`, {
+        const response = await axios.get(`${API_BASE_URL}/admin/enquires`, {
           headers: {
             'Authorization': token ? `Bearer ${token}` : '', 
             'Content-Type': 'application/json'
@@ -32,7 +33,7 @@ const Enquiries = () => {
     };
 
     fetchEnquiries();
-  }, [page, search]);
+  }, [page, search, token]);
 
   // Handle page change
   const handlePageChange = (selectedPage) => {
