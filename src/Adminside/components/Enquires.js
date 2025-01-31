@@ -33,7 +33,7 @@ const Enquiries = () => {
     };
 
     fetchEnquiries();
-  }, [page, search, token]);
+  }, [page, search, token, API_BASE_URL]);
 
   // Handle page change
   const handlePageChange = (selectedPage) => {
