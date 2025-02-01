@@ -5,13 +5,14 @@ function ContactChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
+  const [phoneno, setphoneno] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // To store error message
   const [responseMessage, setResponseMessage] = useState(""); // To store API success response
 
   const toggleChat = () => setIsOpen(!isOpen);
-  const currentDate = new Date().toLocaleDateString();
+  const currentDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
@@ -20,12 +21,14 @@ function ContactChat() {
     setResponseMessage("");
 
     try { 
+      console.log(currentDate);
+      
       const response = await fetch(`${API_BASE_URL}/user/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, date: currentDate }),
+        body: JSON.stringify({ name, email, phoneno, date: currentDate }),
       });
 
       const data = await response.json();
@@ -86,6 +89,20 @@ function ContactChat() {
               </>
             )}
             {step === 2 && (
+              <>
+                <p>Please Enter your Mobile number</p>
+                <input
+                  type="number"
+                  placeholder="Enter your mobile number"
+                  value={phoneno}
+                  onChange={(e) => setphoneno(e.target.value)}
+                />
+                <button onClick={() => setStep(3)} disabled={!name}>
+                  Next
+                </button>
+              </>
+            )}
+            {step === 3 && (
               <>
                 {/* Only show input and submit button if no response message is present */}
                 {!responseMessage && !errorMessage && (  

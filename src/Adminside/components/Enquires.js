@@ -37,13 +37,13 @@ const Enquiries = () => {
 
   // Handle page change
   const handlePageChange = (selectedPage) => {
-    setPage(selectedPage.selected + 1); // React Paginate starts at 0
+    setPage(selectedPage.selected + 1); 
   };
 
   // Handle search input change
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
-    setPage(1); // Reset to first page when search changes
+    setPage(1); 
   };
 
   return (
