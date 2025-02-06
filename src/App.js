@@ -11,7 +11,7 @@ import AdminLogin from "./Adminside/pages/AdminLogin";
 import AdminDashboard from "./Adminside/pages/AdminDashboard";
 import AddProduct from "./Adminside/components/AddProduct";
 import Enquiries from "./Adminside/components/Enquires";
-import Settings from "./Adminside/components/Settings";
+import Products from "./Adminside/components/Products";
 import ProtectedRoute from "./ProtectRoutes";
 import { AuthProvider } from "./AuthContext";
 
@@ -56,7 +56,7 @@ function Content() {
           {/* Nested Admin Routes */}
           <Route path="add-product" element={<AddProduct />} />
           <Route path="enquiries" element={<Enquiries />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="Products" element={<Products />} />
         </Route>
       </Routes>
 

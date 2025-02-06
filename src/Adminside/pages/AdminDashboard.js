@@ -22,6 +22,11 @@ const AdminDashboard = () => {
         <nav className="sidebar-nav">
           <ul>
             <li>
+              <NavLink to="Products" activeClassName="active">
+                products
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="add-product" activeClassName="active-link">
                 Add Product
               </NavLink>
@@ -29,11 +34,6 @@ const AdminDashboard = () => {
             <li>
               <NavLink to="enquiries" activeClassName="active-link">
                 Enquiries
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="settings" activeClassName="active-link">
-                Settings
               </NavLink>
             </li>
             <li>
