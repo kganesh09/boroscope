@@ -29,6 +29,7 @@ const ProductList = () => {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('adminToken');
 
+  // Fetch products
   const fetchProducts = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/admin/ViewProducts`, {
@@ -43,18 +44,22 @@ const ProductList = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  }, [currentPage, limit, search,API_BASE_URL,token]);
+  }, [currentPage, limit, search, API_BASE_URL, token]);
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-
-
+  // Delete a product
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:4000/api/products/${id}`);
+        await axios.delete(`${API_BASE_URL}/admin/ProductDelete/${id}`, {
+          headers: {
+            'Authorization': token ? `Bearer ${token}` : '', 
+            'Content-Type': 'application/json'
+          },
+        });
         alert("Product deleted successfully.");
         fetchProducts();
       } catch (error) {
@@ -63,6 +68,7 @@ const ProductList = () => {
     }
   };
 
+  // Edit a product (open the modal)
   const handleEdit = (product) => {
     setEditProduct(product);
     setImageFiles({
@@ -74,20 +80,29 @@ const ProductList = () => {
     setShowModal(true);
   };
 
+  // Save product changes
   const handleSave = async () => {
     const formData = new FormData();
     formData.append("productname", editProduct.productname);
     formData.append("productdescription", editProduct.productdescription);
     formData.append("modelnumber", editProduct.modelnumber);
+
+    // Append image files to FormData (only the actual file objects)
     ["image1", "image2", "image3", "image4"].forEach((imageKey) => {
       if (imageFiles[imageKey]) {
         formData.append(imageKey, imageFiles[imageKey]);
       }
     });
 
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+    
+
     try {
-      await axios.put(`http://localhost:4000/api/products/${editProduct.id}`, formData, {
+      await axios.put(`${API_BASE_URL}/admin/ProductEdit/${editProduct.id}`, formData, {
         headers: {
+          'Authorization': token ? `Bearer ${token}` : '', 
           "Content-Type": "multipart/form-data",
         },
       });
@@ -99,14 +114,21 @@ const ProductList = () => {
     }
   };
 
+  // Handle input changes (for product details)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditProduct((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle image file change (for the image upload)
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-    setImageFiles((prev) => ({ ...prev, [name]: files[0] }));
+    if (files.length > 0) {
+      const file = files[0];
+      const fileURL = URL.createObjectURL(file); // Generate a temporary preview URL
+      setEditProduct((prev) => ({ ...prev, [name]: fileURL })); // Update preview instantly
+      setImageFiles((prev) => ({ ...prev, [name]: file })); // Save the file for form submission
+    }
   };
 
   return (
@@ -123,57 +145,56 @@ const ProductList = () => {
       />
 
       {/* Product Table */}
-<Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>Images</th>
-      <th>Product Name</th>
-      <th>Description</th>
-      <th>Model Number</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {products.length > 0 ? (
-      products.map((product) => (
-        <tr key={product.id}>
-          <td>
-            <Image
-              src={API_BASE_URL + "/uploads/" + product.image1}
-              alt={product.productname}
-              style={{ width: "80px", height: "80px", objectFit: "cover" }}
-            />
-          </td>
-          <td>{product.productname}</td>
-          <td>{product.productdescription}</td>
-          <td>{product.modelnumber}</td>
-          <td className="d-flex">
-            <Button
-              variant="primary"
-              className="me-2"
-              onClick={() => handleEdit(product)}
-            >
-              <PencilSquare />Edit
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => handleDelete(product.id)}
-            >
-              <Trash />Delete
-            </Button>
-          </td>
-        </tr>
-      ))
-    ) : (
-      <tr>
-        <td colSpan="5" className="text-center">
-          No products found
-        </td>
-      </tr>
-    )}
-  </tbody>
-</Table>
-
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Images</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Model Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <tr key={product.id}>
+                <td>
+                  <Image
+                    src={API_BASE_URL + "/uploads/" + product.image1}
+                    alt={product.productname}
+                    style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                  />
+                </td>
+                <td>{product.productname}</td>
+                <td>{product.productdescription}</td>
+                <td>{product.modelnumber}</td>
+                <td className="d-flex">
+                  <Button
+                    variant="primary"
+                    className="me-2"
+                    onClick={() => handleEdit(product)}
+                  >
+                    <PencilSquare /> Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    <Trash /> Delete
+                  </Button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No products found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
 
       {/* Pagination */}
       <Pagination className="justify-content-center">
@@ -232,11 +253,13 @@ const ProductList = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
+
+              {/* Image Fields */}
               {["image1", "image2", "image3", "image4"].map((imageKey, index) => (
                 <Form.Group className="mb-3" key={imageKey}>
                   <Form.Label>Image {index + 1}</Form.Label>
                   <Image
-                    src={API_BASE_URL + "/uploads/" + editProduct[imageKey]}
+                    src={editProduct[imageKey]?.startsWith("blob:") ? editProduct[imageKey] : `${API_BASE_URL}/uploads/${editProduct[imageKey]}`}
                     alt={`Preview ${imageKey}`}
                     style={{ width: "100px", height: "100px", objectFit: "cover", marginBottom: "10px" }}
                     thumbnail
