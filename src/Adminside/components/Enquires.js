@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
@@ -10,6 +11,7 @@ const Enquiries = () => {
   const [loading, setLoading] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('adminToken');
+  const navigate = useNavigate();
 
   // Fetch enquiries data
   useEffect(() => {
@@ -26,6 +28,9 @@ const Enquiries = () => {
         setEnquiries(response.data.data);
         setTotalPages(response.data.pagination.totalPages);
       } catch (error) {
+        if (error.response && error.response.status === 401) {
+          navigate('/admin/login'); 
+        }
         console.error('Error fetching data: ', error);
       }finally {
         setLoading(false);
@@ -33,7 +38,7 @@ const Enquiries = () => {
     };
 
     fetchEnquiries();
-  }, [page, search, token, API_BASE_URL]);
+  }, [page, search, token, API_BASE_URL,navigate]);
 
   // Handle page change
   const handlePageChange = (selectedPage) => {

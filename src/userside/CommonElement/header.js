@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import logo from "../../images/logo5.Zj9Pk6"
 
 function Header() {
-  
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -13,7 +13,7 @@ function Header() {
             <img src={logo} className="navbar-logo" alt="navlogo"></img>
           </NavLink>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler bg-light text-dark"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -23,8 +23,8 @@ function Header() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto">
+          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/">
                   Home

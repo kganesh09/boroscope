@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { PencilSquare, Trash } from 'react-bootstrap-icons';
 import axios from "axios";
 import {
@@ -28,6 +29,7 @@ const ProductList = () => {
   });
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('adminToken');
+  const navigate = useNavigate();
 
   // Fetch products
   const fetchProducts = useCallback(async () => {
@@ -42,9 +44,12 @@ const ProductList = () => {
       setProducts(response.data.data);
       setTotalPages(response.data.pagination.totalPages);
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        navigate('/admin/login'); 
+      }
       console.error("Error fetching products:", error);
     }
-  }, [currentPage, limit, search, API_BASE_URL, token]);
+  }, [currentPage, limit, search, API_BASE_URL, token, navigate]);
 
   useEffect(() => {
     fetchProducts();

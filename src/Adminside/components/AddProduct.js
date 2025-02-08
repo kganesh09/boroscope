@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -15,6 +16,7 @@ const ProductUpload = () => {
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('adminToken');
+  const navigate = useNavigate();
 
   // Refs for file inputs
   const fileInputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
@@ -83,11 +85,15 @@ const ProductUpload = () => {
         });
       }, 2000);
     } catch (error) {
-      setMessage(error.response?.data?.error || "Upload failed");
-      setMessageType("error"); // Error message
-      setTimeout(() => {
-        setMessage(""); // Clear message after 2 seconds
-      }, 2000);
+      if (error.response && error.response.status === 401) {
+        navigate('/admin/login'); 
+      }else{
+        setMessage(error.response?.data?.error || "Upload failed");
+        setMessageType("error"); // Error message
+        setTimeout(() => {
+          setMessage(""); // Clear message after 2 seconds
+        }, 2000);
+      }
     }
   };
 
