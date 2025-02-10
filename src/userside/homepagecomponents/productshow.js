@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import product1 from './images/industrial-boroscop.jpg';
-import product2 from './images/artifical-boroscope.jpg';
+import product2 from './images/A-boroscope.jpg';
 import product3 from './images/rigid-boroscopo.jpg';
-import product4 from './images/industral-microscope.jpg';
+import product4 from './images/IM-microscope.jpg';
 
 const categories = [
   { id: 1, title: "Industrial Borescope ", image: product1 },
