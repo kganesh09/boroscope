@@ -5,10 +5,10 @@ import product3 from './images/productshow3.webp';
 import product4 from './images/productshow4.webp';
 
 const categories = [
-  { id: 1, title: "Measuring Instruments", image: product1 },
-  { id: 2, title: "Control Systems", image: product2 },
-  { id: 3, title: "Weighing Equipment", image: product3 },
-  { id: 4, title: "Laboratory Technology", image: product4 },
+  { id: 1, title: "Industrial Borescope ", image: product1 },
+  { id: 2, title: "Articulating Borescope", image: product2 },
+  { id: 3, title: "Rigid Borescope ", image: product3 },
+  { id: 4, title: "Industrial Microscope", image: product4 },
 ];
 
 export default function Productshow() {
