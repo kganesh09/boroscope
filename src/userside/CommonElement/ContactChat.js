@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ChatDotsFill } from "react-bootstrap-icons"; 
 import "./Chat.css";
 
 function ContactChat() {
@@ -61,7 +62,7 @@ function ContactChat() {
     <>
       {/* Floating Button */}
       <button onClick={toggleChat} className="floating-button">
-        {isOpen ? "✖" : "💬"} 
+        {isOpen ? "✖" : <ChatDotsFill/>} 
       </button>
 
       {/* Chat Popup */}

@@ -5,8 +5,8 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #007bff;
-    color: white;
+    background-color: white;
+    color: orange;
     font-size: 24px;
     border: none;
     cursor: pointer;
@@ -73,3 +73,11 @@
     background: #ccc;
     cursor: not-allowed;
   }
+
+  .category-image {
+    width: 100%;
+    max-width: 500px; 
+    height: 300px; 
+    object-fit: contain;
+  }
+  

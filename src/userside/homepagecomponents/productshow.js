@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import product1 from './images/productshow1.webp';
-import product2 from './images/productshow2.webp';
-import product3 from './images/productshow3.webp';
-import product4 from './images/productshow4.webp';
+import product1 from './images/industrial-boroscop.jpg';
+import product2 from './images/artifical-boroscope.jpg';
+import product3 from './images/rigid-boroscopo.jpg';
+import product4 from './images/industral-microscope.jpg';
 
 const categories = [
   { id: 1, title: "Industrial Borescope ", image: product1 },
@@ -34,11 +34,11 @@ export default function Productshow() {
         </div>
 
         {/* Right Image */}
-        <div className="col-md-8">
+        <div className="col-md-8 d-flex justify-content-center align-items-center">
           <img
             src={activeImage}
             alt="Category Display"
-            className="img-fluid rounded shadow"
+            className="category-image"
           />
         </div>
       </div>
