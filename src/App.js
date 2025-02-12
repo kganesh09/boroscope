@@ -5,7 +5,8 @@ import Header from "./userside/CommonElement/header";
 import Home from "./userside/pages/home";
 import Service from "./userside/pages/Service";
 import About from "./userside/pages/AboutUs";
-import Product from "./userside/pages/Product";
+import Product from "./userside/pages/ProductPage";
+import SingleProduct from "./userside/pages/SingleProduct"
 import ContactChat from "./userside/CommonElement/ContactChat";
 import AdminLogin from "./Adminside/pages/AdminLogin";
 import AdminDashboard from "./Adminside/pages/AdminDashboard";
@@ -42,6 +43,7 @@ function Content() {
         <Route path="/service" element={<Service />} />
         <Route path="/about" element={<About />} />
         <Route path="/product" element={<Product />} />
+        <Route path ="/SingleProduct" element={<SingleProduct/>} />
 
         {/* Admin-Side Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
