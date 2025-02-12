@@ -63,6 +63,7 @@ const ProductDetails = () => {
         <h1>{product.productname}</h1>
         <p>{product.productdescription}</p>
         <p><strong>Model Number:</strong> {product.modelnumber}</p>
+        <p><strong>Free demo Avaliable</strong></p>
         <button className="buy-now-button">Buy Now</button>
       </div>
     </div>
