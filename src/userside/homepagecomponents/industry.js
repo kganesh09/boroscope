@@ -1,25 +1,46 @@
 import React from "react";
+import sony from "./images/brands/sony.svg"
+import wonder from "./images/brands/wonderchef.svg"
+import whirpool from "./images/brands/whirlpool.svg"
+import greenchef from "./images/brands/greenchef.svg"
+import samsung from "./images/brands/samsung.svg"
+import indus from "./images/brands/indusvalley.svg"
+import butterfly from "./images/brands/butterfly.svg"
+import bosch from "./images/brands/bosch.svg"
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function IndustrySolutions() {
+const brands = [
+  { name: "Sony", src: sony },
+  { name: "Wonderchef", src: wonder },
+  { name: "Whirlpool", src: whirpool },
+  { name: "Greenchef", src: greenchef},
+  { name: "Samsung", src: samsung },
+  { name: "Indus Valley", src: indus },
+  { name: "Butterfly", src: butterfly },
+  { name: "Bosch", src: bosch },
+];
+
+const FeaturedBrands = () => {
   return (
-    <div className="industry-solutions-container">
-      <h2 className="title">PRODUCTS AND SOLUTIONS FOR THE INDUSTRY</h2>
-      <div className="content">
-        <p>
-          PCE Instruments works with things that are really important: industrial measurement tools that help to better understand and optimize processes. Our field of activity is the development, manufacture and distribution of industrial products that help to increase efficiency in many industries, such as industrial plants or laboratories.
-        </p>
-        <p>
-          The measuring instruments are the main focus of PCE Instruments. In our catalog, you will find hand tools, instruments for fixed installation, and other measuring instruments for analysis and research.
-        </p>
-        <p>
-          Collecting data is becoming increasingly important every day in the industry, both in the professional and private sector. Demand is focused primarily on devices that measure quickly and accurately, delivering concrete results during the measurement. At PCE Instruments, you will find over 600 instruments from the areas of measurement, control, and weighing technology.
-        </p>
-        <p>
-          Please contact us and we will assist you in finding the most suitable measuring instrument.
-        </p>
+    <div className="container my-5">
+      <h2 className="text-center fw-bold">Top Featured Brand at Lotus</h2>
+      <p className="text-center text-muted">
+        Most Demanding &amp; Best Selling Electronic Brands
+      </p>
+      <div className="row text-center">
+        {brands.map((brand, index) => (
+          <div key={index} className="col-6 col-md-3 mb-4">
+            <img
+              src={brand.src}
+              alt={brand.name}
+              className="img-fluid brand-logo"
+              style={{ maxHeight: "80px", objectFit: "contain" }}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
-export default IndustrySolutions;
+export default FeaturedBrands;
