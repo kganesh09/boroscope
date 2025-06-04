@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css'; // Optional for extra styling
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -20,10 +21,10 @@ const Footer = () => {
           <div className="col-md-4 mb-4">
             <h5 className="fw-semibold text-white">Quick Links</h5>
             <ul className="list-unstyled">
-              <li><a href="/" className="text-muted text-decoration-none">Home</a></li>
-              <li><a href="/about" className="text-muted text-decoration-none">About Us</a></li>
-              <li><a href="/services" className="text-muted text-decoration-none">Services</a></li>
-              <li><a href="/contact" className="text-muted text-decoration-none">Contact</a></li>
+              <li><Link to="/" className="text-muted text-decoration-none">Home</Link></li>
+              <li><Link to="/about" className="text-muted text-decoration-none">About Us</Link></li>
+              <li><Link to="/service" className="text-muted text-decoration-none">Services</Link></li>
+              <li><Link to="/product" className="text-muted text-decoration-none">Product</Link></li>
             </ul>
           </div>
 
@@ -34,10 +35,10 @@ const Footer = () => {
             <p className="text-muted mb-1"><i className="bi bi-envelope-fill me-2"></i>support@borescopebazaar.com</p>
             <p className="text-muted"><i className="bi bi-telephone-fill me-2"></i>+91 98765 43210</p>
             <div className="d-flex gap-3 mt-2">
-              <a href="#" className="text-light"><i className="bi bi-facebook fs-5"></i></a>
-              <a href="#" className="text-light"><i className="bi bi-instagram fs-5"></i></a>
-              <a href="#" className="text-light"><i className="bi bi-linkedin fs-5"></i></a>
-              <a href="#" className="text-light"><i className="bi bi-twitter fs-5"></i></a>
+              <a href="https://www.facebook.com" className="text-light"><i className="bi bi-facebook fs-5"></i></a>
+              <a href="https://www.instagram.com" className="text-light"><i className="bi bi-instagram fs-5"></i></a>
+              <a href="https://www.linkedin.com/" className="text-light"><i className="bi bi-linkedin fs-5"></i></a>
+              <a href="https://x.com/" className="text-light"><i className="bi bi-twitter fs-5"></i></a>
             </div>
           </div>
         </div>
