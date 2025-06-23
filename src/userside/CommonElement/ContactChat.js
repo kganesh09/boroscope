@@ -13,7 +13,8 @@ function ContactChat() {
   const [responseMessage, setResponseMessage] = useState(""); // To store API success response
 
   const toggleChat = () => setIsOpen(!isOpen);
-  const currentDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const now = new Date();
+  const currentDate = now.toISOString().split('T')[0];
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
